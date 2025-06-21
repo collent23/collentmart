@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tambah Produk - CollentMart</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <h2>Masukkan PIN Admin</h2>
+  <div id="pin-check">
+    <input type="password" id="pin-input" placeholder="PIN admin" />
+    <button onclick="checkPIN()">Lanjut</button>
+  </div>
+
+  <div id="form-container" style="display:none;">
+    <h2>Tambah Produk</h2>
+    <input type="text" id="name" placeholder="Nama produk"/>
+    <input type="text" id="price" placeholder="Harga"/>
+    <input type="file" id="image"/>
+    <button onclick="saveProduct()">Simpan</button>
+  </div>
+
+  <script>
+    function checkPIN() {
+      const input = document.getElementById('pin-input').value;
+      if (input === 'collent123') {
+        document.getElementById('pin-check').style.display = 'none';
+        document.getElementById('form-container').style.display = 'block';
+      } else {
+        alert('PIN salah!');
+      }
+    }
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

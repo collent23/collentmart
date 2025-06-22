@@ -1,231 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>CollentMart v3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CollentMart</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #eee;
-      padding: 20px;
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background: #f5f5f5;
     }
-    .product-form, .product-list, .cart, .footer {
-      background: #222;
-      border: 1px solid #444;
-      border-radius: 8px;
-      padding: 15px;
+    h1 {
+      font-size: 28px;
       margin-bottom: 20px;
     }
-    input, button {
-      padding: 8px;
-      margin: 5px 0;
-      width: 100%;
-      border-radius: 5px;
+    .btn {
+      display: block;
+      margin: 10px auto;
+      padding: 14px 28px;
+      font-size: 16px;
+      background-color: #1976d2;
+      color: white;
       border: none;
-    }
-    input[type="file"] {
-      background: #333;
-      color: #eee;
-    }
-    button {
-      background: limegreen;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    img {
-      max-width: 100%;
       border-radius: 8px;
-      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 250px;
     }
-    .product {
-      border-top: 1px solid #444;
-      padding-top: 10px;
-      margin-top: 10px;
+    .btn:hover {
+      background-color: #1565c0;
     }
-    .btn-edit, .btn-delete {
-      background: orange;
-      margin-top: 5px;
-    }
-    .btn-delete {
-      background: crimson;
+    footer {
+      margin-top: 60px;
+      font-size: 13px;
+      color: #666;
     }
   </style>
 </head>
 <body>
+  <h1>Selamat datang di <strong>CollentMart</strong></h1>
+  <button class="btn" onclick="location.href='v3/index.html'">🛒 Masuk ke Toko</button>
+  <button class="btn" onclick="location.href='admin.html'">⚙️ Masuk sebagai Admin</button>
 
-  <h2>🛍️ CollentMart v3</h2>
-
-  <div class="product-form">
-    <h3>Tambah / Edit Produk</h3>
-    <input type="text" id="productName" placeholder="Nama Produk">
-    <input type="number" id="productPrice" placeholder="Harga (Rp)">
-    <input type="file" id="productImage" accept="image/*">
-    <img id="previewImage" style="display:none;">
-    <button onclick="addProduct()">Simpan Produk</button>
-  </div>
-
-  <div class="product-list" id="productList">
-    <h3>Daftar Produk</h3>
-  </div>
-
-  <div class="cart" id="cart">
-    <h3>🛒 Keranjang</h3>
-    <div id="cartItems"></div>
-    <p><strong>Total: </strong><span id="totalPrice">Rp 0</span></p>
-    <button onclick="checkout()">Lanjut ke Pesanan</button>
-  </div>
-
-  <div class="footer">
-    <p>Hubungi via WA: <strong>083891827793</strong></p>
-    <p>Rekening (Dana): <strong>083891827793</strong></p>
-  </div>
-
-  <script>
-    
-    let products = JSON.parse(localStorage.getItem('products')) || [];
-    let currentImage = '';
-    
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let editIndex = null;
-
-    const productImage = document.getElementById('productImage');
-    const previewImage = document.getElementById('previewImage');
-
-    productImage.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          previewImage.src = e.target.result;
-          previewImage.style.display = 'block';
-          currentImage = e.target.result; previewImage.dataset.image = e.target.result;
-        }
-        reader.readAsDataURL(file);
-      }
-    });
-
-    function addProduct() {
-      const name = document.getElementById('productName').value;
-      const price = parseInt(document.getElementById('productPrice').value);
-      let image = previewImage.dataset.image || currentImage;
-
-      if (!name || !price || !image) {
-        alert("Lengkapi semua data produk!");
-        return;
-      }
-
-      const product = { name, price, image };
-
-      if (editIndex !== null) {
-        products[editIndex] = product;
-        editIndex = null;
-      } else {
-        products.push(product);
-      }
-
-      saveProducts();
-      resetForm();
-      renderProducts();
-    }
-
-    function resetForm() {
-      document.getElementById('productName').value = '';
-      document.getElementById('productPrice').value = '';
-      productImage.value = '';
-      previewImage.style.display = 'none';
-      previewImage.dataset.image = ''; currentImage = '';
-    }
-
-    function renderProducts() {
-      const list = document.getElementById('productList');
-      list.innerHTML = '<h3>Daftar Produk</h3>';
-      products.forEach((product, index) => {
-        list.innerHTML += `
-          <div class="product">
-            <img src="${product.image}">
-            <p><strong>${product.name}</strong><br>Rp ${product.price.toLocaleString()}</p>
-            <button onclick="addToCart(${index})">Tambah ke Keranjang</button>
-            <button class="btn-edit" onclick="editProduct(${index})">Edit</button>
-            <button class="btn-delete" onclick="deleteProduct(${index})">Hapus</button>
-          </div>
-        `;
-      });
-    }
-
-    function editProduct(index) {
-      const product = products[index];
-      document.getElementById('productName').value = product.name;
-      document.getElementById('productPrice').value = product.price;
-      previewImage.src = product.image;
-      previewImage.style.display = 'block';
-      previewImage.dataset.image = product.image;
-      editIndex = index;
-    }
-
-    function deleteProduct(index) {
-      if (confirm("Yakin mau hapus produk ini?")) {
-        products.splice(index, 1);
-        saveProducts();
-        renderProducts();
-      }
-    }
-
-    function addToCart(index) {
-      cart.push(products[index]);
-      saveCart();
-      renderCart();
-    }
-
-    function renderCart() {
-      const cartItems = document.getElementById('cartItems');
-      const total = document.getElementById('totalPrice');
-      cartItems.innerHTML = '';
-      let totalPrice = 0;
-      cart.forEach((item, i) => {
-        cartItems.innerHTML += `<p>${item.name} - Rp ${item.price.toLocaleString()} <button onclick="removeFromCart(${i})">❌</button></p>`;
-        totalPrice += item.price;
-      });
-      total.innerText = `Rp ${totalPrice.toLocaleString()}`;
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      saveCart();
-      renderCart();
-    }
-
-    function checkout() {
-      if (cart.length === 0) {
-        alert("Keranjang masih kosong!");
-        return;
-      }
-
-      let pesan = "Halo, saya mau pesan:
-";
-      let total = 0;
-      cart.forEach(item => {
-        pesan += `- ${item.name} (Rp ${item.price.toLocaleString()})\n`;
-        total += item.price;
-      });
-      pesan += `\nTotal: Rp ${total.toLocaleString()}`;
-      window.open(`https://wa.me/6283891827793?text=${encodeURIComponent(pesan)}`, "_blank");
-    }
-
-    function saveProducts() {
-      localStorage.setItem('products', JSON.stringify(products));
-    }
-
-    function saveCart() {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    // Load data awal
-    renderProducts();
-    renderCart();
-  </script>
-
+  <footer>© 2025 CollentMart • Powered by Firebase + GitHub</footer>
 </body>
 </html>

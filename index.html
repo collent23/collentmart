@@ -1,58 +1,48 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Collentmart - Pilih Mode</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CollentMart</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #f5f5f5, #e0e0e0);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      font-family: sans-serif;
       text-align: center;
+      padding-top: 100px;
+      background: #f5f5f5;
     }
-
     h1 {
-      color: #333;
-      margin-bottom: 30px;
+      font-size: 28px;
+      margin-bottom: 20px;
     }
-
     .btn {
-      padding: 15px 30px;
-      margin: 10px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      background-color: #1e88e5;
+      display: block;
+      margin: 10px auto;
+      padding: 14px 28px;
+      font-size: 16px;
+      background-color: #1976d2;
       color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
       transition: background-color 0.3s ease;
+      width: 250px;
     }
-
     .btn:hover {
       background-color: #1565c0;
     }
-
     footer {
-      position: absolute;
-      bottom: 15px;
+      margin-top: 60px;
       font-size: 13px;
       color: #666;
     }
   </style>
 </head>
 <body>
-  <h1>Selamat datang di <strong>Collentmart</strong></h1>
-  <button class="btn" onclick="location.href='admin.html'">Masuk sebagai Admin</button>
-  <button class="btn" onclick="location.href='shop.html'">Lihat Toko (Pengunjung)</button>
-  
-  <footer>© 2025 Collentmart • Powered by Firebase + GitHub</footer>
+  <h1>Selamat datang di <strong>CollentMart</strong></h1>
+  <button class="btn" onclick="location.href='v3/index.html'">🛒 Masuk ke Toko</button>
+  <button class="btn" onclick="location.href='admin.html'">⚙️ Masuk sebagai Admin</button>
+
+  <footer>© 2025 CollentMart • Powered by Firebase + GitHub</footer>
 </body>
 </html>

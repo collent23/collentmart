@@ -1,32 +1,35 @@
-let cart = [];
+const cart = [];
 
 function addToCart(name, price) {
-  const existing = cart.find(item => item.name === name);
-  if (existing) {
-    existing.qty += 1;
+  const item = cart.find(p => p.name === name);
+  if (item) {
+    item.qty++;
   } else {
     cart.push({ name, price, qty: 1 });
   }
-  alert(`${name} ditambahkan ke keranjang!`);
-  updateCartDisplay();
+  updateCart();
 }
 
-function updateCartDisplay() {
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
+function updateCart() {
+  const container = document.getElementById("cart-items");
+  const totalEl = document.getElementById("cart-total");
+  container.innerHTML = "";
 
   if (cart.length === 0) {
-    cartItems.innerHTML = "Belum ada produk.";
-    cartTotal.textContent = "";
+    container.innerText = "Belum ada produk.";
+    totalEl.innerText = "";
     return;
   }
 
-  cartItems.innerHTML = cart.map(item =>
-    `<div>• ${item.name} (${item.qty}) - Rp${(item.price * item.qty).toLocaleString()}</div>`
-  ).join("");
+  let total = 0;
+  cart.forEach(item => {
+    const el = document.createElement("div");
+    el.innerText = `${item.name} (${item.qty}) - Rp${(item.price * item.qty).toLocaleString()}`;
+    container.appendChild(el);
+    total += item.price * item.qty;
+  });
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  cartTotal.textContent = `Total: Rp${total.toLocaleString()}`;
+  totalEl.innerText = `Total: Rp${total.toLocaleString()}`;
 }
 
 function pesanViaWA() {
@@ -35,17 +38,16 @@ function pesanViaWA() {
     return;
   }
 
-  let pesan = "Halo Admin, saya mau pesan:%0A";
+  let pesan = "Halo Admin, saya mau pesan:\n";
   let total = 0;
 
   cart.forEach(item => {
-    pesan += `- ${item.name} (${item.qty})%0A`;
+    pesan += `- ${item.name} (${item.qty})\n`;
     total += item.price * item.qty;
   });
 
-  pesan += `%0A🧾 Total: Rp${total.toLocaleString()}%0A`;
-  pesan += `%0ADikirim dari CollentMart`;
-
-  const no = "6283891827793"; // <- Ganti kalau perlu
-  window.location.href = `https://wa.me/${no}?text=${encodeURIComponent(pesan)}`;
+  pesan += `\n🧾 Total: Rp${total.toLocaleString()}\n\nDikirim dari CollentMart`;
+  const nomor = "6283891827793";
+  const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+  window.open(url, "_blank");
 }

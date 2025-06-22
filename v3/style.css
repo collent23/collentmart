@@ -1,74 +1,117 @@
 body {
-  font-family: sans-serif;
   margin: 0;
-  padding: 0;
-  background: #f4f4f4;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 header {
-  background: #2196f3;
-  color: #fff;
-  padding: 1rem;
+  background-color: #4CAF50; /* 💚 hijau CollentMart */
+  color: white;
+  padding: 20px 10px;
   text-align: center;
 }
 
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
 nav {
-  margin-top: 10px;
-}
-
-nav button {
-  margin: 5px;
-  padding: 6px 12px;
-  border: none;
-  background: #fff;
-  color: #2196f3;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-nav button:hover {
-  background: #1976d2;
-  color: white;
-}
-
-main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 1rem;
+  gap: 10px;
+  margin: 15px 10px;
+}
+
+nav button {
+  padding: 8px 16px;
+  background-color: white;
+  color: #4CAF50;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+nav button:hover {
+  background-color: #388e3c;
+  color: white;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  padding: 20px;
 }
 
 .product-card {
-  background: white;
-  border-radius: 8px;
-  margin: 10px;
+  background-color: white;
   padding: 10px;
-  width: 150px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   text-align: center;
 }
 
 .product-card img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
   border-radius: 6px;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #2196f3;
-  padding: 1rem;
-  text-align: center;
+.product-card h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
 }
 
-footer button {
-  padding: 10px 20px;
-  background: #fff;
+.product-card p {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #666;
+}
+
+.product-card button {
+  padding: 6px 12px;
+  background-color: #4CAF50;
+  color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  color: #2196f3;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.product-card button:hover {
+  background-color: #388e3c;
+}
+
+.wa-order {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.wa-order button {
+  padding: 12px 20px;
+  background-color: #25d366;
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.wa-order button:hover {
+  background-color: #1ebe5d;
+}
+
+footer {
+  text-align: center;
+  padding: 15px 0;
+  font-size: 13px;
+  color: #666;
 }

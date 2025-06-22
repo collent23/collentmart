@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CollentMart - Toko</title>
+  <title>CollentMart - Katalog</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>🛍️ CollentMart</h1>
+    <nav>
+      <button onclick="filterCategory('all')">Semua</button>
+      <button onclick="filterCategory('pulsa')">Pulsa</button>
+      <button onclick="filterCategory('game')">Game</button>
+      <button onclick="filterCategory('fashion')">Fashion</button>
+      <button onclick="filterCategory('elektronik')">Elektronik</button>
+      <button onclick="filterCategory('lainnya')">Lainnya</button>
+    </nav>
   </header>
 
   <main>

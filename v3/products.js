@@ -33,10 +33,10 @@ const products = [
     price: 12000,
     image: "https://via.placeholder.com/150?text=Stiker",
     category: "lainnya"
-  },
+  }
 ];
 
-// Render otomatis
+// 🔄 Render otomatis produk
 const list = document.getElementById("product-list");
 products.forEach(product => {
   const el = document.createElement("div");
@@ -51,8 +51,10 @@ products.forEach(product => {
   list.appendChild(el);
 });
 
+// ✅ Fungsi filter kategori
 function filterCategory(category) {
   document.querySelectorAll('.product-card').forEach(card => {
-    card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+    card.style.display = (category === 'all' || card.dataset.category === category)
+      ? 'block' : 'none';
   });
 }

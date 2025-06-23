@@ -1,13 +1,13 @@
 let cart = [];
 
-function addToCart(name, price) {
-  const item = cart.find(i => i.name === name);
-  if (item) {
-    item.qty += 1;
-  } else {
-    cart.push({ name, price, qty: 1 });
+function updateCart() {
+  const countElem = document.getElementById("cart-count");
+  if (countElem) {
+    const totalItem = cart.reduce((sum, item) => sum + item.qty, 0);
+    countElem.textContent = totalItem;
   }
-  updateCart(); // penting! biar isi keranjang langsung ke-refresh
+
+  renderCart();
 }
 
 function updateCartDisplay() {
@@ -43,4 +43,21 @@ function pesanViaWA() {
 
   const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
   window.location.href = url;
+}
+function renderCart() {
+  const list = document.getElementById("cart-list");
+  const totalElem = document.getElementById("cart-total");
+  list.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `🛒 ${item.name} (${item.qty}) - Rp${(item.price * item.qty).toLocaleString()}`;
+    list.appendChild(li);
+    total += item.price * item.qty;
+  });
+
+  if (totalElem) {
+    totalElem.textContent = `Total: Rp${total.toLocaleString()}`;
+  }
 }

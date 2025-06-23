@@ -112,3 +112,10 @@ footer {
   padding: 4px 0;
   border-bottom: 1px dashed #ccc;
 }
+#cart {
+  background-color: #e3f2fd; /* warna biru muda */
+  border: 1px solid #2196f3;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+}

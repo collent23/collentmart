@@ -1,8 +1,13 @@
 let cart = [];
 
 function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCartDisplay();
+  const item = cart.find(i => i.name === name);
+  if (item) {
+    item.qty += 1;
+  } else {
+    cart.push({ name, price, qty: 1 });
+  }
+  updateCart(); // penting! biar isi keranjang langsung ke-refresh
 }
 
 function updateCartDisplay() {

@@ -36,25 +36,18 @@ const products = [
   }
 ];
 
-// 🔄 Render otomatis produk
-const list = document.getElementById("product-list");
-products.forEach(product => {
-  const el = document.createElement("div");
-  el.className = "product-card";
-  el.dataset.category = product.category;
-  el.innerHTML = `
-    <img src="${product.image}" alt="${product.name}">
-    <h3>${product.name}</h3>
-    <p>Rp${product.price.toLocaleString()}</p>
-    <button onclick="addToCart('${product.name}', ${product.price})">Tambah</button>
-  `;
-  list.appendChild(el);
-});
-
-// ✅ Fungsi filter kategori
-function filterCategory(category) {
-  document.querySelectorAll('.product-card').forEach(card => {
-    card.style.display = (category === 'all' || card.dataset.category === category)
-      ? 'block' : 'none';
+window.onload = () => {
+  const list = document.getElementById("product-list");
+  products.forEach(product => {
+    const el = document.createElement("div");
+    el.className = "product-card";
+    el.dataset.category = product.category;
+    el.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>Rp${product.price.toLocaleString()}</p>
+      <button onclick="addToCart('${product.name}', ${product.price})">Tambah</button>
+    `;
+    list.appendChild(el);
   });
-}
+};

@@ -1,39 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <title>CollentMart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CollentMart - Katalog</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; background-color: #e8f5e9; margin: 0; }
+    header { background: #2e7d32; color: white; padding: 10px 20px; }
+    nav { display: flex; gap: 10px; margin-top: 10px; }
+    nav button {
+      flex: 1;
+      padding: 10px;
+      background: #66bb6a;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    nav button:hover { background: #388e3c; }
+
+    section { display: none; padding: 20px; }
+    section.active { display: block; }
+
+    footer { background: #2e7d32; color: white; text-align: center; padding: 10px; margin-top: 20px; }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>🛍️ CollentMart</h1>
-    <nav>
-      <button onclick="filterCategory('all')">Semua</button>
-      <button onclick="filterCategory('pulsa')">Pulsa</button>
-      <button onclick="filterCategory('game')">Game</button>
-      <button onclick="filterCategory('fashion')">Fashion</button>
-      <button onclick="filterCategory('elektronik')">Elektronik</button>
-      <button onclick="filterCategory('lainnya')">Lainnya</button>
-    </nav>
-  </header>
 
-  <main>
-    <section id="product-list" class="product-grid"></section>
-    <section id="cart">
-      <h2>🛒 Keranjang</h2>
-      <div id="cart-items">Belum ada produk.</div>
-      <p id="cart-total"></p>
-      <button onclick="pesanViaWA()">Pesan via WhatsApp</button>
-    </section>
-  </main>
+<header>
+  <h1>🛒 CollentMart</h1>
+  <nav>
+    <button onclick="showTab('home')">🏠 Beranda</button>
+    <button onclick="showTab('info')">ℹ️ Info</button>
+    <button onclick="showTab('bantuan')">❓ Bantuan</button>
+    <button onclick="showTab('kontak')">📞 Kontak</button>
+  </nav>
+</header>
 
-  <footer>
-    <p>© 2025 CollentMart • Powered by GitHub Pages</p>
-  </footer>
+<section id="home" class="active">
+  <h2>Katalog Produk</h2>
+  <div id="product-list"></div>
+  <button onclick="pesanViaWA()">🛒 Pesan via WhatsApp</button>
+</section>
 
-  <script src="products.js"></script>
-  <script src="cart.js"></script>
+<section id="info">
+  <h2>ℹ️ Tentang Toko</h2>
+  <p>CollentMart adalah toko digital serba ada: pulsa, game, fashion, dan lainnya.</p>
+</section>
+
+<section id="bantuan">
+  <h2>❓ Bantuan</h2>
+  <ul>
+    <li>Pilih produk dari katalog</li>
+    <li>Tambahkan ke keranjang</li>
+    <li>Pesan lewat WhatsApp</li>
+  </ul>
+</section>
+
+<section id="kontak">
+  <h2>📞 Kontak Kami</h2>
+  <p>WhatsApp: <a href="https://wa.me/6283891827793">0838-9182-7793</a></p>
+  <p>DANA: 0838-9182-7793</p>
+</section>
+
+<footer>© 2025 CollentMart</footer>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>
+  function showTab(id) {
+    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function pesanViaWA() {
+    const nomor = "6283891827793";
+    const pesan = encodeURIComponent("Halo Admin, saya mau pesan produk dari CollentMart.");
+    window.location.href = `https://wa.me/${nomor}?text=${pesan}`;
+  }
+</script>
+
 </body>
 </html>

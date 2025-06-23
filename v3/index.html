@@ -48,3 +48,21 @@
   </script>
 </body>
 </html>
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>
+  function pesanViaWA() {
+    const nomor = "6283891827793";
+    let pesan = "Halo Admin, saya mau pesan:\n";
+
+    let total = 0;
+    cart.forEach(item => {
+      pesan += `- ${item.name} (${item.qty})\n`;
+      total += item.price * item.qty;
+    });
+
+    pesan += `\n🧾 Total: Rp${total.toLocaleString()}\n\nDikirim dari CollentMart`;
+    const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+    window.open(url, "_blank");
+  }
+</script>

@@ -1,41 +1,41 @@
 let cart = [];
 
 function addToCart(name, price) {
-  const existing = cart.find(item => item.name === name);
-  if (existing) {
-    existing.qty++;
-  } else {
-    cart.push({ name, price, qty: 1 });
-  }
-  updateCart();
+  cart.push({ name, price });
+  updateCartDisplay();
 }
 
-function updateCart() {
-  const list = document.getElementById("cart-items");
-  list.innerHTML = "";
+function updateCartDisplay() {
+  const cartList = document.getElementById("cart-list");
+  const totalHarga = document.getElementById("total-harga");
+  cartList.innerHTML = "";
+
   let total = 0;
   cart.forEach(item => {
     const li = document.createElement("li");
-    li.textContent = `${item.name} (${item.qty})`;
-    list.appendChild(li);
-    total += item.price * item.qty;
+    li.textContent = `${item.name} - Rp${item.price.toLocaleString()}`;
+    cartList.appendChild(li);
+    total += item.price;
   });
-  document.getElementById("total").textContent = `Total: Rp${total.toLocaleString()}`;
+
+  totalHarga.textContent = `Total: Rp${total.toLocaleString()}`;
 }
 
 function pesanViaWA() {
   const nomor = "6283891827793";
   if (cart.length === 0) {
-    alert("Keranjang kosong!");
+    alert("Keranjang masih kosong, pilih produk dulu ya!");
     return;
   }
 
-  let pesan = "Halo Admin, saya mau pesan:%0A";
+  let pesan = "Halo Admin, saya mau pesan:\n";
   cart.forEach(item => {
-    pesan += `- ${item.name} (${item.qty})%0A`;
+    pesan += `- ${item.name} (1)\n`;
   });
-  const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-  pesan += `%0A🧾 Total: Rp${total.toLocaleString()}%0A%0ADikirim dari CollentMart`;
 
-  window.location.href = `https://wa.me/${nomor}?text=${pesan}`;
+  let total = cart.reduce((sum, item) => sum + item.price, 0);
+  pesan += `\n🧾 Total: Rp${total.toLocaleString()}\n\nDikirim dari CollentMart`;
+
+  const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+  window.location.href = url;
 }

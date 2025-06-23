@@ -90,3 +90,25 @@ footer {
   border-radius: 10px;
   box-shadow: 0 0 5px #0003;
 }
+.cart-area {
+  background-color: #ffffffd5;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-area h2 {
+  margin-top: 0;
+}
+
+#cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+#cart-list li {
+  padding: 4px 0;
+  border-bottom: 1px dashed #ccc;
+}

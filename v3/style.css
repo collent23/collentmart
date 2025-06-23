@@ -79,3 +79,14 @@ footer {
 .wa-button:hover {
   background-color: #1EBE54;
 }
+#cart-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  background: #ffffffdd;
+  padding: 4px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #0003;
+}

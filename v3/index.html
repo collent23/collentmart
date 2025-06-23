@@ -129,5 +129,28 @@
 
   <script src="products.js"></script>
   <script src="cart.js"></script>
+  <script>
+  function loadProducts() {
+    const container = document.getElementById("product-list");
+
+    products.forEach((p) => {
+      const div = document.createElement("div");
+      div.className = "product-card";
+      div.dataset.category = p.category;
+      div.innerHTML = `
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>Rp${p.price.toLocaleString()}</p>
+        <button onclick="addToCart('${p.name}', ${p.price})" class="blue-button">Tambah ke Keranjang</button>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  window.onload = () => {
+    loadProducts();
+    updateCart();
+  };
+</script>
 </body>
 </html>

@@ -27,10 +27,34 @@
     <button onclick="pesanViaWA()" class="wa-button">Kirim Pesanan via WhatsApp</button>
   </main>
 
-  <footer>
-    <p>© 2025 CollentMart • Powered by GitHub Pages</p>
-  </footer>
+<footer>
+  <p>© 2025 CollentMart • Powered by GitHub Pages</p>
+  <button onclick="pesanViaWA()" class="wa-button">Kirim Pesanan via WhatsApp</button>
+</footer>
 
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>
+  function pesanViaWA() {
+    const nomor = "6283891827793";
+    if (!window.cart || cart.length === 0) {
+      alert("Keranjang masih kosong!");
+      return;
+    }
+
+    let pesan = "Halo Admin, saya mau pesan:\n";
+    let total = 0;
+
+    cart.forEach(item => {
+      pesan += `- ${item.name} (${item.qty})\n`;
+      total += item.price * item.qty;
+    });
+
+    pesan += `\n🧾 Total: Rp${total.toLocaleString()}\n\nDikirim dari CollentMart";
+    const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+    window.open(url, "_blank");
+  }
+</script>
   <script src="products.js"></script>
   <script src="cart.js"></script>
   <script>

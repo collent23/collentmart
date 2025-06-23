@@ -63,3 +63,19 @@ footer {
   padding: 20px;
   color: #666;
 }
+.wa-button {
+  background-color: #25D366;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+}
+
+.wa-button:hover {
+  background-color: #1EBE54;
+}

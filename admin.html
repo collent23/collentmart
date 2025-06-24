@@ -1,98 +1,62 @@
-<!-- admin.html versi URL gambar (tanpa upload file) -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Collentmart Admin (Link Gambar)</title>
+  <title>Admin Panel Collentmart</title>
+</head>
+<body>
+  <h1>Tambah Produk</h1>
+  <input id="nama" placeholder="Nama Produk">
+  <input id="harga" placeholder="Harga Produk" type="number">
+  <input id="gambar" placeholder="URL Gambar Produk">
+  <button onclick="uploadProduk()">Upload Produk</button>
 
-  <!-- Firebase SDK via compat -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <ul id="daftar-produk">Memuat...</ul>
 
   <script>
-    // Konfigurasi Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyCL-26dKIBz3-npBhWnkFV_uQVjNBMonIw",
-      authDomain: "collentmart.firebaseapp.com",
-      projectId: "collentmart",
-      storageBucket: "collentmart.appspot.com",
-      messagingSenderId: "393900515991",
-      appId: "1:393900515991:web:972f3a34463d6354d3bfd2",
-      measurementId: "G-TSJLHNB5NR"
-    };
+    const BIN_ID = "685ae0118a456b7966b4eef3";
+    const API_KEY = "$2a$10$gJ2hsyhsXcL9CFSSvCU2O.n8jzk1NdscM1GXhJ4I8aeoJz8iuTzyq";
 
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-
-    function uploadProduk(event) {
-      event.preventDefault();
-
-      const nama = document.getElementById("nama").value;
-      const harga = document.getElementById("harga").value;
-      const gambar = document.getElementById("gambar").value;
-
-      if (!nama || !harga || !gambar) {
-        alert("Semua field wajib diisi!");
-        return;
-      }
-
-      const produkRef = database.ref("produk").push();
-      produkRef.set({ nama, harga, gambar })
-        .then(() => {
-          alert("Produk berhasil diupload!");
-          document.getElementById("form").reset();
-          tampilkanProduk();
-        })
-        .catch(error => {
-          alert("Gagal menyimpan produk: " + error.message);
-        });
-    }
-
-    function tampilkanProduk() {
-      const produkList = document.getElementById("produkList");
-      produkList.innerHTML = "Memuat...";
-
-      database.ref("produk").on("value", snapshot => {
-        produkList.innerHTML = "";
-        snapshot.forEach(child => {
-          const data = child.val();
-          const key = child.key;
-
-          const div = document.createElement("div");
-          div.style = "border:1px solid #ccc; padding:10px; margin:10px; border-radius:8px;";
-          div.innerHTML = `
-            <img src="${data.gambar}" alt="${data.nama}" style="width:100%; max-width:300px; border-radius:6px;" />
-            <h3>${data.nama}</h3>
-            <p>Rp ${data.harga}</p>
-            <button onclick="hapusProduk('${key}')">Hapus</button>
-          `;
-          produkList.appendChild(div);
-        });
+    async function loadProduk() {
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { "X-Master-Key": API_KEY }
+      });
+      const data = await res.json();
+      const daftar = document.getElementById("daftar-produk");
+      daftar.innerHTML = "";
+      data.record.forEach(p => {
+        daftar.innerHTML += `<li>${p.nama} - Rp${p.harga}</li>`;
       });
     }
 
-    function hapusProduk(key) {
-      if (confirm("Yakin mau hapus produk ini?")) {
-        database.ref("produk/" + key).remove();
-      }
+    async function uploadProduk() {
+      const nama = document.getElementById("nama").value;
+      const harga = parseInt(document.getElementById("harga").value);
+      const gambar = document.getElementById("gambar").value;
+
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { "X-Master-Key": API_KEY }
+      });
+      const data = await res.json();
+      const produk = data.record;
+
+      produk.push({ id: Date.now(), nama, harga, gambar });
+
+      await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": API_KEY
+        },
+        body: JSON.stringify({ record: produk })
+      });
+
+      alert("Produk berhasil ditambahkan!");
+      loadProduk();
     }
 
-    window.onload = tampilkanProduk;
+    window.onload = loadProduk;
   </script>
-</head>
-<body>
-  <h2>Admin Panel Collentmart</h2>
-  <form id="form" onsubmit="uploadProduk(event)">
-    <input type="text" id="nama" placeholder="Nama Produk" required /><br/><br/>
-    <input type="number" id="harga" placeholder="Harga Produk" required /><br/><br/>
-    <input type="url" id="gambar" placeholder="URL Gambar Produk (https://...jpg)" required /><br/><br/>
-    <button type="submit">Upload Produk</button>
-  </form>
-
-  <hr/>
-
-  <h3>Daftar Produk</h3>
-  <div id="produkList">Memuat...</div>
 </body>
 </html>

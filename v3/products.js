@@ -1,44 +1,20 @@
-const products = [
-  {
-    id: 1,
-    name: "Pulsa Telkomsel 20K",
-    price: 21000,
-    image: "https://via.placeholder.com/150?text=Pulsa+20K",
-    category: "pulsa"
-  },
-  {
-    id: 2,
-    name: "Diamond ML 86",
-    price: 15000,
-    image: "https://via.placeholder.com/150?text=ML+Diamond",
-    category: "game"
-  },
-  {
-    id: 3,
-    name: "Kaos Collent Black",
-    price: 69000,
-    image: "https://via.placeholder.com/150?text=Kaos+Collent",
-    category: "fashion"
-  },
-  {
-    id: 4,
-    name: "Headset Bluetooth",
-    price: 99000,
-    image: "https://via.placeholder.com/150?text=Headset",
-    category: "elektronik"
-  },
-  {
-    id: 5,
-    name: "Stiker Custom",
-    price: 12000,
-    image: "https://via.placeholder.com/150?text=Stiker",
-    category: "lainnya"
+fetch("https://api.jsonbin.io/v3/b/685ae0118a456b7966b4eef3/latest", {
+  headers: {
+    "X-Master-Key": "$2a$10$gJ2hsyhsXcL9CFSSvCU2O.n8jzk1NdscM1GXhJ4I8aeoJz8iuTzyq"
   }
-];
-
-// 🔄 Fungsi filter kategori
-function filterCategory(category) {
-  document.querySelectorAll('.product-card').forEach(card => {
-    card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+})
+.then(res => res.json())
+.then(data => {
+  const produk = data.record;
+  const container = document.getElementById("produk-container");
+  produk.forEach(item => {
+    container.innerHTML += `
+      <div class="produk">
+        <img src="${item.gambar}" alt="${item.nama}" style="width:100%; max-height:180px; object-fit:cover;" />
+        <h3>${item.nama}</h3>
+        <p>Harga: Rp ${item.harga.toLocaleString()}</p>
+        <p>Stok: ${item.stok}</p>
+      </div>
+    `;
   });
-}
+});

@@ -39,6 +39,6 @@ function pesanViaWA() {
   message += `\nTotal: Rp${total.toLocaleString()}`;
 
   const encoded = encodeURIComponent(message);
-  const url = `https://wa.me/6281234567890?text=${encoded}`;
+  const url = `https://wa.me/6283891827793?text=${encoded}`;
   window.open(url, "_blank");
 }

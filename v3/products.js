@@ -36,5 +36,9 @@ const products = [
   }
 ];
 
-window.onload = () => {
-};
+// 🔄 Fungsi filter kategori
+function filterCategory(category) {
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+  });
+}

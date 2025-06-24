@@ -1,59 +1,44 @@
 let cart = [];
 
+// Tambah produk ke keranjang
 function addToCart(name, price) {
-  const item = cart.find(i => i.name === name);
-  if (item) {
-    item.qty += 1;
-  } else {
-    cart.push({ name, price, qty: 1 });
-  }
+  cart.push({ name, price });
   updateCart();
 }
 
+// Update tampilan keranjang
 function updateCart() {
-  const countElem = document.getElementById("cart-count");
-  if (countElem) {
-    const totalItem = cart.reduce((sum, item) => sum + item.qty, 0);
-    countElem.textContent = totalItem;
-  }
-
-  renderCart();
-}
-
-function renderCart() {
   const list = document.getElementById("cart-list");
-  const totalElem = document.getElementById("cart-total");
+  const total = document.getElementById("cart-total");
   list.innerHTML = "";
-  let total = 0;
 
-  cart.forEach(item => {
+  let sum = 0;
+  cart.forEach((item) => {
     const li = document.createElement("li");
-    li.textContent = `🛒 ${item.name} (${item.qty}) - Rp${(item.price * item.qty).toLocaleString()}`;
+    li.textContent = `${item.name} - Rp${item.price.toLocaleString()}`;
     list.appendChild(li);
-    total += item.price * item.qty;
+    sum += item.price;
   });
 
-  if (totalElem) {
-    totalElem.textContent = `Total: Rp${total.toLocaleString()}`;
-  }
+  total.textContent = `Total: Rp${sum.toLocaleString()}`;
 }
 
+// Kirim via WhatsApp
 function pesanViaWA() {
-  const nomor = "6283891827793";
   if (cart.length === 0) {
-    alert("Keranjang kosong!");
+    alert("Keranjang masih kosong!");
     return;
   }
 
-  let pesan = "Halo Admin, saya mau pesan:\n";
-  let total = 0;
-
-  cart.forEach(item => {
-    pesan += `- ${item.name} (${item.qty})\n`;
-    total += item.price * item.qty;
+  let message = "*Pesanan CollentMart:*\n\n";
+  cart.forEach((item, i) => {
+    message += `${i + 1}. ${item.name} - Rp${item.price.toLocaleString()}\n`;
   });
 
-  pesan += `\n🧾 Total: Rp${total.toLocaleString()}\n\nDikirim dari CollentMart`;
-  const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
-  window.location.href = url;
+  const total = cart.reduce((a, b) => a + b.price, 0);
+  message += `\nTotal: Rp${total.toLocaleString()}`;
+
+  const encoded = encodeURIComponent(message);
+  const url = `https://wa.me/6281234567890?text=${encoded}`;
+  window.open(url, "_blank");
 }

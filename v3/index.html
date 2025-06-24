@@ -1,74 +1,77 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CollentMart V3</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      font-family: sans-serif;
-      background-color: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f8ff;
       margin: 0;
       padding: 0;
     }
 
     header {
-      background-color: #1565c0;
+      background-color: #1976d2;
       color: white;
-      padding: 1rem;
+      padding: 20px;
+      text-align: center;
     }
 
     nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
       margin-top: 10px;
     }
 
     nav button, nav a {
-      background-color: #64b5f6;
-      color: white;
+      margin: 5px;
+      padding: 10px 14px;
       border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
+      border-radius: 5px;
+      background-color: #2196f3;
+      color: white;
       text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     nav button:hover, nav a:hover {
-      background-color: #42a5f5;
-    }
-
-    #product-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 1rem;
+      background-color: #0d47a1;
     }
 
     .product-card {
-      background: white;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 180px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 15px;
+      padding: 10px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: scale(1.03);
     }
 
     .product-card img {
       max-width: 100%;
-      border-radius: 8px;
+      border-radius: 5px;
+      margin-bottom: 10px;
     }
 
-    .cart-button {
-      margin-top: 8px;
+    .blue-button {
       background-color: #1e88e5;
       color: white;
       border: none;
-      padding: 6px 10px;
+      padding: 8px 12px;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .blue-button:hover {
+      background-color: #1565c0;
     }
 
     .cart-area {
@@ -86,37 +89,25 @@
       padding: 10px 15px;
       border-radius: 6px;
       cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .wa-button:hover {
+      background-color: #1ebe5c;
     }
 
     footer {
       text-align: center;
-      margin: 20px;
-      color: #666;
+      padding: 10px;
+      color: #555;
     }
-.product-card {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
 
-.product-card img {
-  width: 100%;
-  max-width: 150px;
-  border-radius: 5px;
-  margin-bottom: 8px;
-}
-
-.blue-button {
-  background-color: #1e88e5;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    #product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
@@ -154,27 +145,33 @@
   <script src="products.js"></script>
   <script src="cart.js"></script>
   <script>
-  function loadProducts() {
-    const container = document.getElementById("product-list");
+    function loadProducts() {
+      const container = document.getElementById("product-list");
+      products.forEach((p) => {
+        const div = document.createElement("div");
+        div.className = "product-card";
+        div.dataset.category = p.category;
+        div.innerHTML = `
+          <img src="${p.image}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>Rp${p.price.toLocaleString()}</p>
+          <button onclick="addToCart('${p.name}', ${p.price})" class="blue-button">Tambah ke Keranjang</button>
+        `;
+        container.appendChild(div);
+      });
+    }
 
-    products.forEach((p) => {
-      const div = document.createElement("div");
-      div.className = "product-card";
-      div.dataset.category = p.category;
-      div.innerHTML = `
-        <img src="${p.image}" alt="${p.name}">
-        <h3>${p.name}</h3>
-        <p>Rp${p.price.toLocaleString()}</p>
-        <button onclick="addToCart('${p.name}', ${p.price})" class="blue-button">Tambah ke Keranjang</button>
-      `;
-      container.appendChild(div);
-    });
-  }
+    function filterCategory(category) {
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.style.display = (category === 'all' || card.dataset.category === category)
+          ? 'block' : 'none';
+      });
+    }
 
-  window.onload = () => {
-    loadProducts();
-    updateCart();
-  };
-</script>
+    window.onload = () => {
+      loadProducts();
+      updateCart();
+    };
+  </script>
 </body>
 </html>

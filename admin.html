@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Collentmart</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Admin Collentmart</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabase.js" defer></script>
 </head>
 <body class="dark-mode">
   <header>
-    <h1>Panel Admin - Collentmart</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="#form-area">Tambah Produk</a>
-      <a href="#produk-container">Daftar Produk</a>
-    </nav>
+    <h1>Panel Admin Collentmart</h1>
   </header>
 
-  <section class="form-area" id="form-area">
+  <section class="form-area">
     <h2>Tambah Produk</h2>
-    <form id="uploadForm">
-      <input type="text" id="nama" placeholder="Nama Produk"><br>
-      <input type="number" id="harga" placeholder="Harga Produk"><br>
-      <input type="file" id="gambar"><br>
-      <button type="submit">Upload</button>
-    </form>
+    <input type="text" id="nama" placeholder="Nama Produk" /><br />
+    <input type="number" id="harga" placeholder="Harga Produk" /><br />
+    <input type="text" id="gambar" placeholder="Link Gambar Produk" /><br />
+    <button onclick="uploadProduk()">Upload Produk</button>
     <p id="status"></p>
   </section>
 
   <section class="product-list">
     <h2>Daftar Produk</h2>
-    <div id="produk-container"><p>Memuat produk...</p></div>
+    <div id="produk-container">Memuat produk...</div>
   </section>
-
-  <script src="firebase.js"></script>
-  <script src="admin.js"></script>
 </body>
 </html>

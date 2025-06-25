@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin Collentmart</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dark-mode">
   <header>
@@ -19,9 +19,9 @@
   <section class="form-area" id="form-area">
     <h2>Tambah Produk</h2>
     <form id="uploadForm">
-      <input type="text" id="nama" placeholder="Nama Produk"><br>
-      <input type="number" id="harga" placeholder="Harga Produk"><br>
-      <input type="file" id="gambar"><br>
+      <input type="text" id="nama" placeholder="Nama Produk" required /><br />
+      <input type="number" id="harga" placeholder="Harga Produk" required /><br />
+      <input type="file" id="gambar" required /><br />
       <button type="submit">Upload</button>
     </form>
     <p id="status"></p>
@@ -29,10 +29,10 @@
 
   <section class="product-list">
     <h2>Daftar Produk</h2>
-    <div id="produk-container"><p>Memuat produk...</p></div>
+    <div id="produk-container" class="produk-grid"><p>Memuat produk...</p></div>
   </section>
 
-  <script src="firebase.js"></script>
+  <script src="supabase.js"></script>
   <script src="admin.js"></script>
 </body>
 </html>

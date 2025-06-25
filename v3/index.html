@@ -4,111 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CollentMart V3</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f8ff;
-      margin: 0;
-      padding: 0;
-    }
 
-    header {
-      background-color: #1976d2;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
-    nav {
-      margin-top: 10px;
-    }
-
-    nav button, nav a {
-      margin: 5px;
-      padding: 10px 14px;
-      border: none;
-      border-radius: 5px;
-      background-color: #2196f3;
-      color: white;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    nav button:hover, nav a:hover {
-      background-color: #0d47a1;
-    }
-
-    .product-card {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin: 15px;
-      padding: 10px;
-      background: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: transform 0.2s;
-    }
-
-    .product-card:hover {
-      transform: scale(1.03);
-    }
-
-    .product-card img {
-      max-width: 100%;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .blue-button {
-      background-color: #1e88e5;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .blue-button:hover {
-      background-color: #1565c0;
-    }
-
-    .cart-area {
-      background-color: #e3f2fd;
-      border: 1px solid #2196f3;
-      padding: 15px;
-      margin: 20px;
-      border-radius: 10px;
-    }
-
-    .wa-button {
-      background-color: #25d366;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .wa-button:hover {
-      background-color: #1ebe5c;
-    }
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      color: #555;
-    }
-
-    #product-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
@@ -142,34 +43,9 @@
     <p>© 2025 CollentMart</p>
   </footer>
 
-  <script src="products.js"></script>
   <script src="cart.js"></script>
+  <script src="products.js"></script>
   <script>
-    function loadProducts() {
-    fetch("https://api.jsonbin.io/v3/b/685ae0118a456b7966b4eef3/latest", {
-      headers: {
-        "X-Master-Key": "$2a$10$gJ2hsyhsXcL9CFSSvCU2O.n8jzk1NdscM1GXhJ4I8aeoJz8iuTzyq"
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      const products = data.record;
-      const container = document.getElementById("product-list");
-      products.forEach((p) => {
-        const div = document.createElement("div");
-        div.className = "product-card";
-        div.dataset.category = p.category || "umum";
-        div.innerHTML = `
-          <img src="${p.gambar}" alt="${p.nama}">
-          <h3>${p.nama}</h3>
-          <p>Rp${p.harga.toLocaleString()}</p>
-          <button onclick="addToCart('${p.nama}', ${p.harga})" class="blue-button">Tambah ke Keranjang</button>
-        `;
-        container.appendChild(div);
-      });
-    });
-  }
-
     function filterCategory(category) {
       document.querySelectorAll('.product-card').forEach(card => {
         card.style.display = (category === 'all' || card.dataset.category === category)
@@ -182,5 +58,6 @@
       updateCart();
     };
   </script>
+
 </body>
 </html>

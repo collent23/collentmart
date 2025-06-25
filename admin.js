@@ -1,5 +1,6 @@
 // admin.js
-// Tampilkan produk dari database
+
+// Tampilkan daftar produk
 function tampilkanProduk() {
   const container = document.getElementById("produk-container");
   container.innerHTML = "<p>Memuat produk...</p>";
@@ -20,31 +21,38 @@ function tampilkanProduk() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", tampilkanProduk);
+// Upload produk baru
 document.getElementById("uploadForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const nama = document.getElementById("nama").value;
-  const harga = document.getElementById("harga").value;
-  const gambar = document.getElementById("gambar").files[0];
+  const nama = document.getElementById("nama").value.trim();
+  const harga = document.getElementById("harga").value.trim();
+  const file = document.getElementById("gambar").files[0];
 
-  if (!nama || !harga || !gambar) return alert("Lengkapi semua kolom!");
+  if (!nama || !harga || !file) {
+    alert("Lengkapi semua data!");
+    return;
+  }
 
-  const storageRef = firebase.storage().ref("produk/" + gambar.name);
-  const uploadTask = storageRef.put(gambar);
+  const reader = new FileReader();
+  reader.onload = function() {
+    const gambarData = reader.result;
 
-  uploadTask.on("state_changed", 
-    () => {},
-    (error) => alert("Upload gagal: " + error),
-    () => {
-      uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-        const produkRef = firebase.database().ref("produk");
-        const newProduk = produkRef.push();
-        newProduk.set({ nama, harga, gambar: url });
-
-        alert("Produk berhasil diunggah!");
-        document.getElementById("uploadForm").reset();
-      });
-    }
-  );
+    const id = Date.now();
+    db.ref("produk/" + id).set({
+      nama: nama,
+      harga: harga,
+      gambar: gambarData
+    }, error => {
+      if (error) {
+        document.getElementById("status").innerText = "❌ Gagal upload.";
+      } else {
+        document.getElementById("status").innerText = "✅ Produk berhasil ditambahkan.";
+        tampilkanProduk(); // Refresh produk
+      }
+    });
+  };
+  reader.readAsDataURL(file); // convert gambar ke base64
 });
+
+document.addEventListener("DOMContentLoaded", tampilkanProduk);

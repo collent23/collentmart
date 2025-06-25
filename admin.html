@@ -8,24 +8,28 @@
 </head>
 <body class="dark-mode">
   <header>
-    <h1>Panel Admin Collentmart</h1>
+    <h1>Panel Admin - Collentmart</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#form-area">Tambah Produk</a>
+      <a href="#produk-container">Daftar Produk</a>
+    </nav>
   </header>
 
-  <section class="form-area">
+  <section class="form-area" id="form-area">
     <h2>Tambah Produk</h2>
-    <input type="text" id="nama" placeholder="Nama Produk"><br>
-    <input type="number" id="harga" placeholder="Harga Produk"><br>
-    <input type="file" id="gambar"><br>
-    <button onclick="uploadProduk()">Upload Produk</button>
+    <form id="uploadForm">
+      <input type="text" id="nama" placeholder="Nama Produk"><br>
+      <input type="number" id="harga" placeholder="Harga Produk"><br>
+      <input type="file" id="gambar"><br>
+      <button type="submit">Upload</button>
+    </form>
     <p id="status"></p>
   </section>
 
-  <section class="product-list" id="product-list">
+  <section class="product-list">
     <h2>Daftar Produk</h2>
-<div id="produk-container">
-  <p>Memuat produk...</p>
-</div>
-    <div id="produk-container" class="produk-grid"></div>
+    <div id="produk-container"><p>Memuat produk...</p></div>
   </section>
 
   <script src="firebase.js"></script>

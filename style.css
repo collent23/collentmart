@@ -39,3 +39,9 @@ button {
 button:hover {
   background-color: #2ea043;
 }
+.produk-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}

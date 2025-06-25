@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Collentmart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+  <header>
+    <h1>Panel Admin Collentmart</h1>
+  </header>
+
+  <section class="form-area">
+    <h2>Tambah Produk</h2>
+    <input type="text" id="nama" placeholder="Nama Produk"><br>
+    <input type="number" id="harga" placeholder="Harga Produk"><br>
+    <input type="file" id="gambar"><br>
+    <button onclick="uploadProduk()">Upload Produk</button>
+    <p id="status"></p>
+  </section>
+
+  <section class="product-list" id="product-list">
+    <h2>Daftar Produk</h2>
+    <div id="produk-container" class="produk-grid"></div>
+  </section>
+
+  <script src="firebase.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

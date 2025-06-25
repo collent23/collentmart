@@ -1,4 +1,26 @@
 // admin.js
+// Tampilkan produk dari database
+function tampilkanProduk() {
+  const container = document.getElementById("produk-container");
+  container.innerHTML = "<p>Memuat produk...</p>";
+
+  db.ref("produk").once("value", snapshot => {
+    container.innerHTML = "";
+    snapshot.forEach(child => {
+      const p = child.val();
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${p.gambar}" alt="${p.nama}">
+        <h3>${p.nama}</h3>
+        <p>Rp${Number(p.harga).toLocaleString()}</p>
+      `;
+      container.appendChild(card);
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", tampilkanProduk);
 document.getElementById("uploadForm").addEventListener("submit", function(e) {
   e.preventDefault();
 

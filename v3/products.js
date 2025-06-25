@@ -1,5 +1,4 @@
 // v3/products.js
-
 const firebaseConfig = {
   apiKey: "AIzaSyCL-26dKIBz3-npBhWnkFV_uQVjNBMonIw",
   authDomain: "collentmart.firebaseapp.com",
@@ -23,7 +22,6 @@ function loadProducts() {
       const p = child.val();
       const div = document.createElement("div");
       div.className = "product-card";
-      div.dataset.category = p.kategori || "umum";
       div.innerHTML = `
         <img src="${p.gambar}" alt="${p.nama}">
         <h3>${p.nama}</h3>

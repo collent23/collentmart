@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Collentmart</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collentmart Admin</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Panel Admin Collentmart</h1>
-    <form id="uploadForm">
-      <input type="text" id="nama" placeholder="Nama Produk" required />
-      <input type="number" id="harga" placeholder="Harga Produk" required />
-      <input type="file" id="gambar" accept="image/*" required />
-      <button type="submit">Upload Produk</button>
-    </form>
-  </div>
+  <header>
+    <h1>Panel Admin - Collentmart</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#form">Tambah Produk</a>
+      <a href="#produk">Daftar Produk</a>
+    </nav>
+  </header>
 
+  <section id="form" class="form-section">
+    <h2>Tambah Produk</h2>
+    <form id="uploadForm">
+      <input type="text" id="nama" placeholder="Nama Produk" required>
+      <input type="number" id="harga" placeholder="Harga Produk" required>
+      <input type="file" id="gambar" accept="image/*" required>
+      <button type="submit">Upload</button>
+    </form>
+  </section>
+
+  <section id="produk">
+    <h2>Daftar Produk</h2>
+    <div id="produk-container">Memuat produk...</div>
+  </section>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
   <script src="firebase.js"></script>
-  <script src="admin.js"></script>
+  <script src="panel.js"></script>
 </body>
 </html>

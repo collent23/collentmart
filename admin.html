@@ -1,136 +1,33 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin CollentMart</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      background-color: #121212;
-      color: #ffffff;
-    }
-    h1 {
-      text-align: center;
-      color: #00d1ff;
-    }
-    form {
-      max-width: 400px;
-      margin: auto;
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      display: grid;
-      gap: 12px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      font-size: 16px;
-    }
-    input, select {
-      background-color: #2c2c2c;
-      color: #fff;
-    }
-    button {
-      background-color: #00d1ff;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #00aacc;
-    }
-    img {
-      width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid #555;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 </head>
-<body>
-  <h1>🛠️ Admin CollentMart</h1>
-  <form onsubmit="tambahProduk(); return false;">
-    <input type="text" id="nama" placeholder="Nama Produk" required />
-    <input type="number" id="harga" placeholder="Harga (Rp)" required />
-    <input type="number" id="stok" placeholder="Stok" required />
-    <select id="kategori" required>
-      <option value="" disabled selected>Pilih Kategori</option>
-      <option value="fashion">Fashion</option>
-      <option value="elektronik">Elektronik</option>
-      <option value="pulsa">Pulsa</option>
-      <option value="game">Game</option>
-      <option value="lainnya">Lainnya</option>
-    </select>
-    <input type="file" id="gambar" accept="image/*" onchange="previewGambar()" required />
-    <img id="preview" style="display:none;" />
-    <button type="submit">+ Tambah Produk</button>
-  </form>
+<body class="dark-mode">
+  <header>
+    <h1>🛠️ Admin CollentMart</h1>
+  </header>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+  <main>
+    <form id="form-produk">
+      <input type="text" id="nama" placeholder="Nama Produk" required>
+      <input type="number" id="harga" placeholder="Harga" required>
+      <input type="file" id="gambar" accept="image/*" required>
+      <button type="submit">Upload</button>
+    </form>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCL-26dKIBz3-npBhWnkFV_uQVjNBMonIw",
-      authDomain: "collentmart.firebaseapp.com",
-      databaseURL: "https://collentmart-default-rtdb.firebaseio.com",
-      projectId: "collentmart",
-      storageBucket: "collentmart.appspot.com",
-      messagingSenderId: "393900515991",
-      appId: "1:393900515991:web:972f3a34463d6354d3bfd2"
-    };
-    firebase.initializeApp(firebaseConfig);
+    <div id="preview-grid"></div>
+  </main>
 
-    function previewGambar() {
-      const file = document.getElementById('gambar').files[0];
-      const preview = document.getElementById('preview');
-      if (file) {
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = "block";
-      }
-    }
+  <footer>© 2025 CollentMart Admin</footer>
 
-    function tambahProduk() {
-      const file = document.getElementById("gambar").files[0];
-      const nama = document.getElementById("nama").value;
-      const harga = parseInt(document.getElementById("harga").value);
-      const stok = parseInt(document.getElementById("stok").value);
-      const kategori = document.getElementById("kategori").value;
-
-      if (!file) return alert("Pilih gambar dulu!");
-
-      const storageRef = firebase.storage().ref("produk/" + Date.now() + "_" + file.name);
-      const uploadTask = storageRef.put(file);
-
-      uploadTask.on("state_changed", null, error => {
-        alert("Upload gagal: " + error.message);
-      }, () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-          const produkBaru = {
-            id: Date.now(),
-            nama,
-            harga,
-            stok,
-            gambar: url,
-            kategori
-          };
-          firebase.database().ref("products").push(produkBaru).then(() => {
-            alert("Produk berhasil ditambahkan!");
-            document.querySelector("form").reset();
-            document.getElementById('preview').style.display = "none";
-          });
-        });
-      });
-    }
-  </script>
+  <script src="firebase.js"></script>
+  <script src="admin.js"></script>
 </body>
 </html>

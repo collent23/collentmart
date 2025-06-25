@@ -1,3 +1,4 @@
+// firebase.js
 const firebaseConfig = {
   apiKey: "AIzaSyCL-26dKIBz3-npBhWnkFV_uQVjNBMonIw",
   authDomain: "collentmart.firebaseapp.com",
@@ -7,4 +8,7 @@ const firebaseConfig = {
   messagingSenderId: "393900515991",
   appId: "1:393900515991:web:972f3a34463d6354d3bfd2"
 };
+
 firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const storage = firebase.storage();

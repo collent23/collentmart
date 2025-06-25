@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin CollentMart</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Collentmart</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
 </head>
 <body>
-  <h1>🛒 Admin CollentMart</h1>
-  <form id="product-form">
-    <input type="text" id="nama" placeholder="Nama Produk" required><br>
-    <input type="number" id="harga" placeholder="Harga" required><br>
-    <input type="file" id="gambar" accept="image/*" required><br>
-    <button type="submit">Upload</button>
-  </form>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <div class="container">
+    <h1>Panel Admin Collentmart</h1>
+    <form id="uploadForm">
+      <input type="text" id="nama" placeholder="Nama Produk" required />
+      <input type="number" id="harga" placeholder="Harga Produk" required />
+      <input type="file" id="gambar" accept="image/*" required />
+      <button type="submit">Upload Produk</button>
+    </form>
+  </div>
+
   <script src="firebase.js"></script>
   <script src="admin.js"></script>
 </body>
